@@ -1,6 +1,10 @@
 # KyotoWriter
 ## A custom built automation scriptwriter used internally by Facebook to allow non-coders to build Automation Tests
 
+### Disclaimer: This is a stripped down version of an internal app. All endpoints and proprietary code owned by Facebook or Wipro have been removed, and this code is specifically useful for automatically compiling test scripts for WebdriverIO App automation. As such, this program as found in this repository may not be fully functional, and is intended as a demonstration of the concept and viability of the app and the skills of its creator.
+
+#### The most important two code examples can be found in the createtest.js file and the wdio.conf.js file. Createtest is where the electron API calls and assembly of code into a javascript test file take place, and the wdio config file contains the custom automation commands that are being called in createtest.
+
 ![Image of Kyoto](https://i.ibb.co/8sJxHw1/Screen-Shot-2019-11-24-at-3-09-16-PM.png)
 
 ### Originally created for the purpose of automating the Bisect process within facebook to shorten the time of a bisect from 2 hours to 10 minutes, this tool has been streamlined for the purpose of specifically writing app automation tests for use in any type of WebdriverIO automation flow.
