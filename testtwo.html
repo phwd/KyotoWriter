@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bisect Two</title>
+  <link rel="stylesheet" href="custom-css-bootstrap-magic-2019-07-09.css" crossorigin="anonymous">
+  <link rel="stylesheet" type ="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+  <style>
+            body {
+                padding: 0px;
+                margin: 0px;
+            }
+
+            #jumbotron {
+                -webkit-app-region: drag;
+                -webkit-user-select: none;
+                position: fixed;
+            }
+        </style>
+</head>
+<body>
+  <div class="jumbotron" style="background-image: url(https://images.unsplash.com/photo-1553865541-afc89e182ae9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80); background-size: 100%;">
+    <h1 class="text-white";>Estimated Steps Remaining: 19</h1>
+  </div>
+  <button id="btnStart" class="btn btn-success btn-sm inline" type="button" >Start Bisect</button>
+  <div style="height:150px;width:400px;overflow:auto;background-color:purple;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px"><ul id="myULContainer"></ul></div>
+
+  <canvas id="myChart"></canvas>
+  
+<script src="jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="jquery.serializejson.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="testTwo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+</body>
+</html>

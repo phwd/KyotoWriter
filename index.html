@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kyoto</title>
+  <link rel="stylesheet" href="custom-css-bootstrap-magic-2019-07-09.css" crossorigin="anonymous">
+  <link rel="stylesheet" type ="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+  <style>
+            body {
+                padding: 0px;
+                margin: 0px;
+            }
+
+            #jumbotron {
+                -webkit-app-region: drag;
+                -webkit-user-select: none;
+                position: fixed;
+            }
+        </style>
+</head>
+<body>
+  <div class="jumbotron" style="background-image: url(https://images.unsplash.com/photo-1553865541-afc89e182ae9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80); background-size: 100%;">
+    <h1 class="text-white";>Kyoto</h1>
+    <p class="lead text-white">Bisect Automator - currently only supporting IOS bisects</p>
+  </div>
+  <div class="container">
+  <div class="card bg-transparant border-primary">
+    <div class="card-header border-light bg-primary text-white"><h3>Bisect Builder</h3></div>
+    <form id="newTest">
+    	<div class="form-group">
+        <div class="container">
+        <div class="row">
+          <div class="col">
+
+    		<label for="username">Username</label>
+       <input type="text" class="form-control" id="username" name="username" placeholder="FB Username"><br>
+     </div>
+     <div class="col">
+       <label for="password">Password</label>
+       <input type="password" class="form-control" id="password" name="password" placeholder="FB Password"><br>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col">
+        <label for="bisectnumber">Bisect Number</label>
+       <input type="number" class="form-control" id="bisectnumber" name="bisectnumber" placeholder="Bisect Number"><br>
+     </div>
+        <div class="col">
+          <label for="tasknumber">Task Number</label>
+       <input type="number" class="form-control" id="tasknumber" name="tasknumber" placeholder="Task Number"><br>
+     </div>
+   </div>
+   </div>
+     </div>
+       <div class="card text-white bg-primary border-light">
+        <div class="card-header border-light">Bisect Steps</div>
+        <div class=container id="StepCont">
+        <div id="StepDiv1" class="steps">
+        <label for="step1">Step 1</label>
+        <select class="form-control steps" id="step1" name="step1">
+        </select>
+
+      </div>
+      </div>
+      <div class="card-footer">
+        <button id="btnAddStep" class="btn btn-warning btn-sm inline" type="button" >Add Step</button>
+        <button id="btnAddCstmStep" class="btn btn-warning btn-sm inline" type="button" >Add Custom Step</button>
+        <button id="btnRmvStep" class="btn btn-warning btn-sm inline" type="button" >Delete Step</button>
+      </div>
+      </div>
+       <div class="card-footer border-light">
+        <div class="row">
+          <div class="col">
+              <label for="element">Element (id or xcui location)</label>
+              <input type="text" class="form-control" id="element" name="element" placeholder="element id"><br>
+          </div>
+          <div class="col">
+              <label for="should">Should</label>
+              <select class="form-control" id="should" name="should">
+                <option value="driver.isExisting">Exist</option>
+                <option value="false == driver.isExisting">Not Exist</option>
+                <option value="driver.isVisible">Be Visible (possibly buggy)</option>
+                <option value="false == driver.isVisible">Not Be Visible (possibly buggy)</option>
+                <option value="gettext">Have text that equals (fill in what to look for)</option>
+                <option value="getlocation">Location should equal (what to look for format {"x":0,"y":0})</option>
+                <option value="getsize">Size should equal (what to look for format {"height":0,"width":0})</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="lookfor">What to look for</label>
+              <input type="text" class="form-control" id="lookfor" name="lookfor" placeholder="text (optional)"><br>
+          </div>
+        </div>
+      <button id="btnSave" class="btn btn-primary inline" type="button" >Save Test</button>
+      <button id="btnOpen" class="btn btn-primary inline" type="button" >Open Test</button>
+      <button id="btnSettings" class="btn btn-primary inline" type="button">App</button>
+      <button id="btnSingleTest" class="btn btn-primary inline" type="button" >Run Single Test</button>
+
+    </div>
+  </form>
+    </div>
+        <div class="container card text-white bg-primary border-light pb-2 mt-2">
+          <h2>Server Hub</h2>
+          <div class="row">
+            <div class="col">
+      <button id="btnServerOne" class="btn btn-warning inline" type="button" >Run Server One</button>
+    </div>
+    <div class="col">
+      <button id="btnServerTwo" class="btn btn-warning inline" type="button" >Run Server Two</button>
+    </div>
+        <div class="col">
+      <button id="btnServerThree" class="btn btn-warning inline" type="button" >Run Server Three</button>
+    </div>
+  </div>
+    </div>
+    <div class="d-flex p-2 bd-highlight">
+    <div id="userconsole" class="card bg-primary text-white" style="height:200px;width:1200px;overflow:auto;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+      <ul id="myULContainer"></ul>
+</div>
+</div>
+    </div>
+    </div>
+  </div>
+</form>
+</div>
+</form>
+</div>
+<script src="jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="application/javascript" src="console-log-html.min.js"></script>
+<script src="jquery.serializejson.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="createTest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+</body>
+</html>

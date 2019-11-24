@@ -1,0 +1,74 @@
+{
+  "name": "Kyoto",
+  "version": "1.0.0",
+  "description": "Kyoto - Automated Bisect Tool",
+  "main": "index.js",
+  "build": {
+    "asar": false,
+    "extraFiles": [
+      {
+        "from": "build/mac/bin",
+        "to": "Resources/bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "appId": "com.kyoto.writer"
+  },
+  "config": {
+    "forge": "./forge.config.js"
+  },
+  "scripts": {
+    "wdio": "wdio.conf.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": {
+      "extraFiles": [
+        {
+          "from": "build/mac/bin",
+          "to": "Resources/bin",
+          "filter": [
+            "**/*"
+          ]
+        }
+      ]
+    },
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Kevin Williamson",
+  "license": "ISC",
+  "devDependencies": {
+    "asar": "^2.0.1",
+    "electron": "^5.0.10",
+    "electron-builder": "^21.2.0",
+    "electron-packager": "^14.0.4",
+    "electron-rebuild": "^1.8.6"
+  },
+  "dependencies": {
+    "@wdio/spec-reporter": "^5.9.3",
+    "appium-selendroid-driver": "^1.13.4",
+    "appium-xcuitest-driver": "^3.2.0",
+    "chai": "^4.2.0",
+    "chai-jquery": "^2.1.0",
+    "console-log-div": "^0.6.3",
+    "console-log-html": "^2.0.2",
+    "electron-root-path": "^1.0.9",
+    "electron-squirrel-startup": "^1.0.0",
+    "fibers": "^4.0.1",
+    "fix-path": "^2.1.0",
+    "mocha": "^6.1.4",
+    "rebuild": "^0.1.2",
+    "selenium-standalone": "^6.15.3",
+    "update-electron-app": "^1.5.0",
+    "wd": "^1.11.3",
+    "wdio-allure-reporter": "^0.8.3",
+    "wdio-mocha-framework": "^0.6.4",
+    "webdriverio": "^4.14.4"
+  }
+}

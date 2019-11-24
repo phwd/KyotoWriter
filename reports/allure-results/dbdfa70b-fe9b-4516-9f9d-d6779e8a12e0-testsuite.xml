@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1566586185508' stop='1566586230291'>
+    <name>Get Past Auth</name>
+    <title>Get Past Auth</title>
+    <test-cases>
+        <test-case start='1566586185509' status='passed' stop='1566586230272'>
+            <name>- runs custom steps</name>
+            <title>- runs custom steps</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='wdio'/>
+                <label name='thread' value='0-0'/>
+            </labels>
+            <parameters>
+                <parameter kind='argument' name='browser' value='0-0'/>
+                <parameter kind='environment-variable' name='capabilities' value='{"driver":{"port":4723,"desiredCapabilities":{"app":"/Users/kwilliamson/Desktop/testrun/build-x86_64-local-fbobjc-messenger.167414359.ipa","platformName":"iOS","deviceName":"iPhone Simulator","automationName":"XCUITest","platformVersion":12.1,"autoAcceptAlerts":true,"newCommandTimeout":600}}}'/>
+                <parameter kind='environment-variable' name='spec files' value='["/Users/kwilliamson/Desktop/KyotoWriter/tests/fbTest.js"]'/>
+            </parameters>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1566586230273' status='broken' stop='1566586230291'>
+            <name>- clicks good or bad based on an element in the app</name>
+            <title>- clicks good or bad based on an element in the app</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='wdio'/>
+                <label name='thread' value='0-0'/>
+            </labels>
+            <parameters>
+                <parameter kind='argument' name='browser' value='0-0'/>
+                <parameter kind='environment-variable' name='capabilities' value='{"driver":{"port":4723,"desiredCapabilities":{"app":"/Users/kwilliamson/Desktop/testrun/build-x86_64-local-fbobjc-messenger.167414359.ipa","platformName":"iOS","deviceName":"iPhone Simulator","automationName":"XCUITest","platformVersion":12.1,"autoAcceptAlerts":true,"newCommandTimeout":600}}}'/>
+                <parameter kind='environment-variable' name='spec files' value='["/Users/kwilliamson/Desktop/KyotoWriter/tests/fbTest.js"]'/>
+            </parameters>
+            <steps/>
+            <attachments/>
+            <failure>
+                <message>Locator Strategy 'css selector' is not supported for this session</message>
+                <stack-trace>Error: Locator Strategy 'css selector' is not supported for this session
+                    at new RuntimeError (node_modules/webdriverio/build/lib/utils/ErrorHandler.js:143:12)
+                    at Request._callback (node_modules/webdriverio/build/lib/utils/RequestHandler.js:316:39)
+                    at Request.self.callback (node_modules/request/request.js:185:22)
+                    at emitTwo (events.js:126:13)
+                    at Request.emit (events.js:214:7)
+                    at Request.&lt;anonymous> (node_modules/request/request.js:1161:10)
+                    at emitOne (events.js:116:13)
+                    at Request.emit (events.js:211:7)
+                    at IncomingMessage.&lt;anonymous> (node_modules/request/request.js:1083:12)
+                    at Object.onceWrapper (events.js:313:30)</stack-trace>
+            </failure>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

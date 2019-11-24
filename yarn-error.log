@@ -1,0 +1,93 @@
+Arguments: 
+  /usr/local/bin/node /opt/facebook/fb-kpm/bin/yarn.js dist
+
+PATH: 
+  /opt/facebook/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/facebook/ops/scripts/chef:/opt/homebrew/bin:/usr/local/munki:/opt/facebook/hg/bin:/opt/android_sdk/tools:/opt/android_sdk/platform-tools:/opt/android_sdk/tools:/opt/android_sdk/platform-tools
+
+Yarn version: 
+  1.12.1
+
+Node version: 
+  8.11.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/kwilliamson/Desktop/KyotoWriter/package.json: Unexpected string in JSON at position 147
+      at JSON.parse (<anonymous>)
+      at /opt/facebook/fb-kpm/lib/cli.js:1166:59
+      at Generator.next (<anonymous>)
+      at step (/opt/facebook/fb-kpm/lib/cli.js:92:30)
+      at /opt/facebook/fb-kpm/lib/cli.js:103:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "Kyoto",
+    "version": "1.0.0",
+    "description": "Kyoto - Automated Bisect Tool",
+    "main": "index.js",
+    "build": {
+        "asar": false",
+      "appId": "com.kyoto.writer",
+      "mac": {
+        "icon": "build/icon.icns"
+      }
+    },
+    "config": {
+      "forge": "./forge.config.js"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "electron .",
+      "build": { "extraFiles": [
+              {
+                  "from": "build/mac/bin",
+                  "to": "Resources/bin",
+                  "filter": [
+                      "**/*"
+                  ]
+              }
+          ]
+      },
+      "package": "electron-forge package",
+      "make": "electron-forge make",
+      "publish": "electron-forge publish",
+      "lint": "echo \"No linting configured\"",
+      "pack": "electron-builder --dir",
+      "dist": "electron-builder"
+    },
+    "author": "Kevin Williamson",
+    "license": "ISC",
+    "devDependencies": {
+      "asar": "^2.0.1",
+      "electron": "^5.0.10",
+      "electron-builder": "^21.2.0",
+      "electron-packager": "^14.0.4"
+    },
+    "dependencies": {
+      "@wdio/spec-reporter": "^5.9.3",
+      "appium-selendroid-driver": "^1.13.4",
+      "chai": "^4.2.0",
+      "chai-jquery": "^2.1.0",
+      "console-log-div": "^0.6.3",
+      "console-log-html": "^2.0.2",
+      "electron-root-path": "^1.0.9",
+      "electron-squirrel-startup": "^1.0.0",
+      "mocha": "^6.1.4",
+      "rebuild": "^0.1.2",
+      "selenium-standalone": "^6.15.3",
+      "update-electron-app": "^1.5.0",
+      "wd": "^1.11.3",
+      "wdio-allure-reporter": "^0.8.3",
+      "wdio-mocha-framework": "^0.6.4",
+      "webdriverio": "^4.13.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
