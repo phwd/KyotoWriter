@@ -1,23 +1,21 @@
 
-//const {execPath} = require('./app/binaries');
+//These constants enable required Electron functionality
 let remote = require('electron').remote;
 const { BrowserWindow, app } = remote
 const { spawn, exec } = require('child_process');
-//var command = spawn(execPath, arg, {});
-//var execCommand = exec(execPath, arg, {});
 const fs = require('fs')
 const path = require('path')
 let dialog = remote.dialog;
 const fixPath = require('fix-path');
  
 
-//var ConsoleLogHTML = require('console-log-html');
 
+//This readies jQuery, which is necessary for some of the included modules
 $( document ).ready(function() {
     console.log( "ready!" );
 });
 
-
+//These create named DOM objects to be manipulated later on in the script
 btnSave = document.getElementById('btnSave')
 btnSettings = document.getElementById('btnSettings')
 btnOpen = document.getElementById('btnOpen')
@@ -37,16 +35,18 @@ testTry = document.getElementById('newTest')
 var counter = 2;
 var commands = ('<option value="driver.mobileLogin();"> Log in with my username/password (ends up on facebook feed) </option><option value="driver.mobileConfigs();"> Import MobileConfigs (requires task number to be filled in) </option><option value="driver.checkForAllow();"> Check to make sure save login info notification is gone (notification blocks further action) </option><option value="driver.scrollDown();"> Scroll down one page length </option><option value="driver.openInjectedVideo();"> Open Injected Video </option><option value="driver.clearAnyNotifs();"> Clear any notifications </option><option value="driver.newsFeed();"> Return to newsfeed (button must be visible in nav menu) </option><option value="driver.watchTab();"> Open Watch Tab (button must be visible in nav menu)</option>')
 const projectDir = app.getAppPath()
-//var newStep = $('<div id=StepDiv' + counter + '><label for="step' + counter + '">Step ' + counter + '</label><select class="form-control" id="step' + counter + '" name="step' + counter + '">' + commands + '</select></div>')
 
 
-
+//adds the commands from the commands variable to the dropdown options
 $('#step1').append(commands)
+
+//changes the child process activation path to the root user directory
 fixPath();
 
-//step2 = document.getElementById('step2').getAttribute("value")
+//Populates the text box at the bottom of the app with console info
 ConsoleLogHTML.connect(document.getElementById("myULContainer"), {}, false, true);
 
+//Activates a selenium instance on app startup
         exec((app.getAppPath() + '/node_modules/selenium-standalone/bin/selenium-standalone start'),{
     maxBuffer: 2000 * 1024 //quick fix
     }, (error, stdout, stderr) => {
@@ -58,6 +58,7 @@ ConsoleLogHTML.connect(document.getElementById("myULContainer"), {}, false, true
   console.log(`selenium: ${stderr}`);
 })
 
+//Activates an Appium instance on app startup
     exec(('appium &'),{
     maxBuffer: 2000 * 1024 //quick fix
     }, (error, stdout, stderr) => {
@@ -69,6 +70,7 @@ ConsoleLogHTML.connect(document.getElementById("myULContainer"), {}, false, true
   console.log(`appium: ${stderr}`);
 })
 
+//The add step button creates a new dropdown step (max of 15)
 btnAddStep.addEventListener('click', function(){
 if(counter>15){
             alert("Only 15 steps allowed");
@@ -88,7 +90,7 @@ if(counter>15){
 
     counter++;
      });
-
+//The add custom step button creates a new custom step (max of 15)
 btnAddCstmStep.addEventListener('click', function(){
 if(counter>15){
             alert("Only 15 steps allowed");
@@ -99,16 +101,10 @@ if(counter>15){
 
     newStep.appendTo('#StepCont')
     $('#StepDiv' + counter).addClass('animated zoomIn')
-    //$('#StepDiv' + counter).slideDown("slow");
-   // function(){
-   // newStep.appendTo('#StepDiv' + counter)
-    //}
-
-
-
     counter++;
      });
 
+//The remove step buttom removes the latest step
      $("#btnRmvStep").click(function () {
     if(counter==1){
           alert("No more steps to remove");
@@ -123,32 +119,16 @@ if(counter>15){
 
      });
 
-  $("#btnSeeData").click(function () {
-    dataForm = $('form').serializeJSON()
-    alert(JSON.stringify(dataForm))
-  })
-
-
-//function(){
-//  $('#newstep').append(commands)
-//}
-
-
-
-
-
-fileContents = "hello"
-
-//let pathName = path.join(__dirname, 'Files')
-
+//The save button creates a file in the file system with the form data saved in JSON format
 btnSave.addEventListener('click', function(){
-  //let testInfo = ('{ username: "' + userName.value + '", "password: "' + password.value + '", bisectnumber: "' + bisect.value + '", step1: "' + step1Obj.value + '" }');
   dialog.showSaveDialog({ defaultPath: 'Bisect Name'}, (filepath) => {
     var pathName = filepath;
     dataForm = $('form').serializeJSON()
     let file = pathName
     let contents = JSON.stringify(dataForm)
     fs.writeFile(file, contents, function(err){
+     
+//Error and success messages
     if (err){
      Swal.fire({
   title: 'Error!',
@@ -168,6 +148,7 @@ btnSave.addEventListener('click', function(){
   })
 })
 
+//Open button opens a saved txt file with test json info inside and populates the tool with the data
 btnOpen.addEventListener('click', function(){
   dialog.showOpenDialog({ defaultPath: 'Bisect Name'}, (filepath) => {
     var pathName = String(filepath);
@@ -189,7 +170,8 @@ btnOpen.addEventListener('click', function(){
   timer: '1000'
 })  
 }
-      
+
+//This info maps the json data back into the form
       dataObject = JSON.parse(data)
       userName.value = dataObject.username
       password.value = dataObject.password
@@ -211,8 +193,8 @@ btnOpen.addEventListener('click', function(){
         document.getElementById(id).value = val;
       }
       setSelectValue('should', dataObject.should)
-      //savedSteps = JSON.parse((data.startsWith('step'))
-        //console.log(savedSteps)
+     
+//Refills dropdown and custom steps. In the process of turning this section into a loop for the sake of DRY code
       $( ".steps" ).remove()
       counter = 1
         if(stepOne !== undefined) {
@@ -344,40 +326,30 @@ btnOpen.addEventListener('click', function(){
               newStep.appendTo('#StepCont')
               }
               counter++
-        }
-      }
-    )
+        }})})})
 
-
-      
-    })
-})
-
+//This section runs a single instance of the test currently written
 btnSingleTest.addEventListener('click', function() {
+ //This compiles the information and writes it as a javascript test file for the webdriverio testrunner to run
   let file = (app.getAppPath() + "/tests/fbTest.js")
         let one = ("bisectNumber = input.bisectnumber; bisectLink = ('https://m.intern.facebook.com/mobile_builds/bisect/detail_new/?bisect_fbid=' + bisectNumber); var passFail = (input.should + " + '"' + "('" + '"' + " + input.element + " + '"' + "')" + '"' + "); if (input.should === " + '"' + "gettext" + '"' + ") {passFail = (" + '"' + "driver.$('" + '"' + " + input.element + " + '"' + "').getText() === input.lookfor" + '"' + ")}; if (input.should === " + '"' + "getlocation" + '"' + ") {passFail = (" + '"' + "JSON.stringify(driver.$('" + '"' + " + input.element + " + '"' + "').getLocation()) === input.lookfor" + '"' + ") }; if (input.should === " + '"' + "getsize" + '"' + ") {passFail = (" + '"' + "JSON.stringify(driver.getElementSize('" + '"' + " + input.element + " + '"' + "')) === input.lookfor" + '"' + ") };tasknumber = input.tasknumber; stepOne = input.step1; stepTwo = input.step2; stepThree = input.step3; stepFour = input.step4; stepFive = input.step5; stepSix = input.step6; stepSeven = input.step7; stepEight = input.step8; stepNine = input.step9; stepTen = input.step10; stepEleven = input.step11; stepTwelve = input.step12; stepThirteen = input.step13; stepFourteen = input.step14; stepFifteen = input.step15;")
         let cstmCmd = ("driver.addCommand('customSteps', function(customVar) {if(stepOne !== undefined) {eval(stepOne)}; if(stepTwo !== undefined) {eval(stepTwo)}; if(stepThree !== undefined) {eval(stepThree)}; if(stepFour !== undefined) {eval(stepFour)}; if(stepFive !== undefined) {eval(stepFive)}; if(stepSix !== undefined) {eval(stepSix)}; if(stepSeven !== undefined) {eval(stepSeven)}; if(stepEight !== undefined) {eval(stepEight)}; if(stepNine !== undefined) {eval(stepNine)}; if(stepTen !== undefined) {eval(stepTen)}; if(stepEleven !== undefined) {eval(stepEleven)}; if(stepTwelve !== undefined) {eval(stepTwelve)}; if(stepThirteen !== undefined) {eval(stepThirteen)}; if(stepFourteen !== undefined) {eval(stepFourteen)}; if(stepFifteen !== undefined) {eval(stepFifteen)}});")
- //     let four = (" function checkExistsWithTimeout(filePath, timeout) {return new Promise(function (resolve, reject) {  var timer = setTimeout(function () {watcher.close(); reject(new Error('File did not exists and was not created during the timeout.'))}, timeout); fs.access(filePath, fs.constants.R_OK, function (err) {if (!err) {clearTimeout(timer); watcher.close(); resolve()}}); var dir = path.dirname(filePath); var basename = path.basename(filePath); var watcher = fs.watch(dir, function (eventType, filename) {if (eventType === 'rename' && filename === basename) {clearTimeout(timer); watcher.close(); resolve()}})})};")
       let five = (' describe("Get Past Auth", function() {')
       let six = (' it("- runs custom steps", function(done) {console.log("Running custom steps"); driver.customSteps()}); it("- clicks good or bad based on an element in the app", function(done) {if (eval(passFail)) {console.log("Good Build!")} else {console.log("Bad Build :' + "'" + '(")}})})')
       let dataForm = $('form').serializeJSON()
       let bisectRun = ("input = " + JSON.stringify(dataForm) + "; " + one + cstmCmd + five + six)
       let contents = bisectRun
 
-//  exec('./node_modules/.bin/selenium-standalone start', (error, stdout, stderr) => {
-//  if (error) {
-//    console.error(`exec error: ${error}`);
-//    return;
-//  }
-//  console.log(`${stdout}`);
-//  console.log(`${stderr}`);
-//})
+   //this command actually writes the file to the file system
 fs.writeFile(file, contents, function(err){
     if (err){
       return console.log(err)
     } else {
+     
+     //If there is no error in creating the file, this command runs the WebdriverIO testrunner
     testRun = spawn('node_modules/webdriverio/bin/wdio', { cwd: projectDir });
 
+     //The functions below pipe the Std Out of webdriverio into the testwriter so any console logs can be viewed in the bottom console
 testRun.stdout.on('data', function (data) {
   console.log(data.toString());
 });
@@ -393,22 +365,8 @@ testRun.on('exit', function (code) {
 })
 })
 
-//        var console = {};//
 
-//        // Getting div to insert logs
-//        var logger = document.getElementById("userconsole");//
-
-//        // Adding log method from our console object
-//        console.log = function(text)
-//        {
-//            var element = document.createElement("div");
-//            var txt = document.createTextNode(text);//
-
-//            logger.appendChild(txt);
-//        }
-
-//window.open('https://m.intern.facebook.com/mobile_builds/bisect/detail_new/?bisect_fbid=' + bisectObj)
-
+//This section sets the Appium and Selenium port for the test runner and allows for the app the tests are run on to be changed
 btnSettings.addEventListener('click', function() {
   let fileTwo = path.join(app.getAppPath(), 'configs.json')
 dialog.showOpenDialog({ defaultPath: 'Bisect Name'}, (filepath) => {
@@ -420,7 +378,7 @@ dialog.showOpenDialog({ defaultPath: 'Bisect Name'}, (filepath) => {
     }})})})
 
 
-
+//The below sections add buttons to run additional appium and selenium servers. This functionality is necessary for additional connected programs not included in this repository
 btnServerOne.addEventListener('click', function() {
 
 let win = new BrowserWindow({ width: 400, height: 200, webPreferences: {nodeIntegration: true}})
@@ -453,15 +411,3 @@ win.on('closed', () => {
 win.loadURL('file://' + __dirname + '/testthreeserver.html')
 
 })
-
-
-
-
-//  spawn('./node_modules/.bin/wdio', (error, stdout, stderr) => {
-//  if (error) {
-//    console.error(`exec error: ${error} ${stdout}`);
-//    return;
-//  }
-//  console.log(`stdout: ${stdout}`);
-//  console.log(`stderr: ${stderr}`);
-//})
